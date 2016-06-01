@@ -5,86 +5,101 @@ plugins = require('webpack-load-plugins')()
 #related to this bug: https://github.com/jtangelder/sass-loader/issues/100
 process.env.UV_THREADPOOL_SIZE = 100
 
-PATHS =
-  src: path.join __dirname, 'src'
-  dist: path.join __dirname, 'dist'
-  test: path.join __dirname, 'e2e'
-  node: path.join __dirname, 'node_modules'
-  bower: path.join __dirname, 'bower_components'
+getPaths = (dirname) ->
+  src: path.join dirname, 'src'
+  dist: path.join dirname, 'dist'
+  test: path.join dirname, 'e2e'
+  node: path.join dirname, 'node_modules'
+  workflow_node: path.resolve "#{__dirname}/../node_modules"
+  bower: path.join dirname, 'bower_components'
 
-config =
-  context: __dirname
-  debug: false
-  devtool: 'source-map'
-  module:
-    preLoaders: [
-      {test: /\.coffee$/, loader: 'coffeelint', exclude: 'node_modules'}
+config = (dirname, isComponent = true) ->
+  PATHS = getPaths dirname
+
+  moduleTypeConfig = if isComponent
+    template: path.join PATHS.test, 'index.html'
+  else
+    template: path.join PATHS.src, 'index.html'
+
+  conf =
+    context: dirname
+    debug: false
+    devtool: 'source-map'
+    module:
+      preLoaders: [
+        {test: /\.coffee$/, loader: 'coffeelint', exclude: 'node_modules'}
+      ]
+      loaders: [
+        {test: /\.js$/, loader: 'jshint', exclude: /node_modules|bower_components/}
+        {test: /\.scss$/, loader: plugins.extractText.extract('style-loader', "css?sourceMap!postcss!sass?sourceMap")}
+        {test: /\.css$/, loader: plugins.extractText.extract("style-loader", "css!postcss")}
+        {test: /\.coffee$/, loader: 'coffee-loader'}
+        {test: /\.jade$/, loader: "html!jade-html"}
+        {test: /\.html$/, loader: 'html'}
+        {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff"}
+        {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"}
+        {test: /\.jpg$/, loader: 'file-loader?mimetype=image/jpg&limit=10000'}
+        {test: /\.gif$/, loader: 'file-loader?mimetype=image/gif&limit=10000'}
+        {test: /\.png$/, loader: 'file-loader?mimetype=image/png&limit=10000'}
+        {test: /\.json$/, loader: 'json'}
+        {test: /lodash/, loader: 'exports?_'}
+      ]
+      postLoaders: [
+        # {test: /\.coffee/, loader: 'istanbul-instrumenter', exclude: 'node_modules|unit'}
+      ]
+      noParse: []
+
+    postcss: -> [ require('precss'),
+      require('autoprefixer')({browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3']})
     ]
-    loaders: [
-      {test: /\.js$/, loader: 'jshint', exclude: /node_modules|bower_components/}
-      {test: /\.scss$/, loader: plugins.extractText.extract('style-loader', "css?sourceMap!postcss!sass?sourceMap")}
-      {test: /\.css$/, loader: plugins.extractText.extract("style-loader", "css!postcss")}
-      {test: /\.coffee$/, loader: 'coffee', exclude: 'node_modules'}
-      {test: /\.jade$/, loader: "html!jade-html"}
-      {test: /\.html$/, loader: 'html'}
-      {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff"}
-      {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"}
-      {test: /\.jpg$/, loader: 'file-loader?mimetype=image/jpg&limit=10000'}
-      {test: /\.gif$/, loader: 'file-loader?mimetype=image/gif&limit=10000'}
-      {test: /\.png$/, loader: 'file-loader?mimetype=image/png&limit=10000'}
-      {test: /\.json$/, loader: 'json'}
-    ]
-    postLoaders: [
-      # {test: /\.coffee/, loader: 'istanbul-instrumenter', exclude: 'node_modules|unit'}
-    ]
-    noParse: []
 
-  postcss: -> [ require('precss'),
-    require('autoprefixer')({browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3']})
-  ]
-
-  sassLoader: {
-    includePaths: [ path.join(PATHS.node, 'normalize-scss', 'sass')]
-  },
-  
-  plugins: [
-    # new webpack.optimize.UglifyJsPlugin {minimize: true},
-    # new webpack.optimize.DedupePlugin()
-
-    new webpack.ProvidePlugin
-      _: "lodash"
-      "config": "config"
-
-    new plugins.html
-      inject: true
-      template: path.join PATHS.src, 'index.html'
-
-    new plugins.html
-      inject: true
-      filename: 'test.html'
-      template: path.join PATHS.src, 'e2e', 'index.html'
-
-    new plugins.extractText "style.css",
-      allChunks: true
-  ]
-
-  resolve:
-    extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", ".scss", '.css']
+    sassLoader: {
+      includePaths: [ path.join(PATHS.node, 'normalize-scss', 'sass')]
+    },
     
-    root: [
-      PATHS.node,
-      PATHS.bower
-    ]
-    
-    modulesDirectories: [
-      'src',
-      'node_modules',
-      'bower_components'
-    ]
-    
-    alias: []
-    unsafeCache: true
+    plugins: [
+      # new webpack.optimize.UglifyJsPlugin
+      #   minimize: true
+      #   compress:
+      #     warnings: false
+      
+      # new webpack.optimize.DedupePlugin()
 
-module.exports =
-  config: config
-  paths: PATHS
+      new webpack.ProvidePlugin
+        "config": "config"
+
+      new plugins.html
+        inject: true
+        template: moduleTypeConfig.template
+
+      new plugins.extractText "style.css",
+        allChunks: true
+
+      new plugins.progressBar()
+    ]
+
+    resolve:
+      extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", ".scss", '.css']
+      
+      root: [
+        PATHS.workflow_node
+      ]
+      
+      modulesDirectories: [
+        'src',
+        'node_modules',
+        'bower_components'
+      ]
+
+      unsafeCache: true
+
+    # See: http://bit.ly/1sL05tL
+    # This was necessary because I do not want to install all the loaders with all the packages. I keep and maintain loaders it under workflows.
+    resolveLoader:
+      root: PATHS.workflow_node
+
+  return conf
+
+module.exports = (dirname) ->
+  config: config(dirname)
+  paths: getPaths(dirname)
