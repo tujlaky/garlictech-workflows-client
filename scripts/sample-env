@@ -1,0 +1,4 @@
+WEBPACK_ROOT=node_modules/@gtrack/workflows/node_modules/.bin
+KARMA_ROOT=node_modules/@gtrack/workflows/node_modules/karma/bin/karma
+
+# NODE_ENV=development
