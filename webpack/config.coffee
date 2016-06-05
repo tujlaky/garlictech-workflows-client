@@ -14,7 +14,6 @@ module.exports = (dirname, isComponent = true) ->
   moduleName = JSON.parse(fs.readFileSync("#{dirname}/package.json", 'utf8')).name
   
   _.assign commonConfig.config,
-    context: dirname
     entry:
       release: './src/'
       e2e: './e2e/test-app'

@@ -1,9 +1,12 @@
 path = require 'path'
+_ = require 'lodash'
+fs = require 'fs'
 webpack = require 'webpack'
 plugins = require('webpack-load-plugins')()
 
 #related to this bug: https://github.com/jtangelder/sass-loader/issues/100
 process.env.UV_THREADPOOL_SIZE = 100
+IsDev = process.env.NODE_ENV is 'development'
 
 getPaths = (dirname) ->
   src: path.join dirname, 'src'
@@ -21,10 +24,13 @@ config = (dirname, isComponent = true) ->
   else
     template: path.join PATHS.src, 'index.html'
 
+  moduleName = JSON.parse(fs.readFileSync("#{dirname}/package.json", 'utf8')).name
+
   conf =
     context: dirname
     debug: false
     devtool: 'source-map'
+
     module:
       preLoaders: [
         {test: /\.coffee$/, loader: 'coffeelint', exclude: 'node_modules'}
@@ -58,16 +64,6 @@ config = (dirname, isComponent = true) ->
     },
     
     plugins: [
-      # new webpack.optimize.UglifyJsPlugin
-      #   minimize: true
-      #   compress:
-      #     warnings: false
-      
-      # new webpack.optimize.DedupePlugin()
-
-      new webpack.ProvidePlugin
-        "config": "config"
-
       new plugins.html
         inject: true
         template: moduleTypeConfig.template
@@ -97,6 +93,16 @@ config = (dirname, isComponent = true) ->
     # This was necessary because I do not want to install all the loaders with all the packages. I keep and maintain loaders it under workflows.
     resolveLoader:
       root: PATHS.workflow_node
+
+  if not IsDev
+    conf.plugins = _.concat conf.plugins, [
+      new webpack.optimize.UglifyJsPlugin
+        minimize: true
+        compress:
+          warnings: false
+      
+      new webpack.optimize.DedupePlugin()
+    ]
 
   return conf
 
