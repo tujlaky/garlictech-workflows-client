@@ -1,5 +1,4 @@
 WORKFLOWS_ROOT=node_modules/@gtrack/workflows
-WEBPACK_ROOT=${WORKFLOWS_ROOT}/node_modules/.bin
-KARMA_ROOT=${WORKFLOWS_ROOT}/node_modules/karma/bin
+WORKFLOWS_BIN=${WORKFLOWS_ROOT}/node_modules/.bin
 
 # export NODE_ENV=development
