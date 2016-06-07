@@ -1,2 +1,2 @@
-# Workflow management for gTrack projects
+# Workflow management for Garlic Tech projects.
 

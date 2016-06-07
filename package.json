@@ -1,15 +1,15 @@
 {
-  "name": "@gtrack/workflows",
+  "name": "@garlictech/workflows",
   "version": "0.0.1",
-  "description": "Workflow management for gTrack projects",
+  "description": "Workflow management for Garlic Tech projects.",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/molnarzs/workflows.git"
   },
   "keywords": [
-    "gtrack"
+    "garlictech"
   ],
-  "author": "Zsolt Molnar",
+  "author": "Zsolt R. Molnar",
   "license": "SEE LICENSE IN license.txt",
   "homepage": "https://bitbucket.org/molnarzs/workflows#readme",
   "dependencies": {
