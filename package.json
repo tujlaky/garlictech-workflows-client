@@ -4,14 +4,14 @@
   "description": "Workflow management for Garlic Tech projects.",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/molnarzs/workflows.git"
+    "url": "git@bitbucket.org:garlictech/workflows.git"
   },
   "keywords": [
     "garlictech"
   ],
   "author": "Zsolt R. Molnar",
   "license": "SEE LICENSE IN license.txt",
-  "homepage": "https://bitbucket.org/molnarzs/workflows#readme",
+  "homepage": "https://bitbucket.org/garlictech/workflows",
   "dependencies": {
     "autoprefixer": "^6.3.6",
     "coffee": "^3.2.1",
