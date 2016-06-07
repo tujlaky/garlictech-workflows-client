@@ -57,13 +57,5 @@
     "webpack": "^1.12.x",
     "webpack-dev-server": "^1.14.1",
     "webpack-load-plugins": "^0.1.2"
-  },
-  "scripts": {
-    "start": "node node_modules/.bin/webpack-dev-server --inline --hot --watch",
-    "unittest": "KARMA_TEST=unit node node_modules/karma/bin/karma start karma.conf.coffee",
-    "build": "node node_modules/webpack/bin/webpack.js",
-    "protractor-start": "node_modules/protractor/bin/webdriver-manager start",
-    "protractor-test": "node_modules/protractor/bin/protractor ./src/test/protractor/config.coffee",
-    "protractor-setup": "node_modules/protractor/bin/webdriver-manager update --standalone"
   }
 }
