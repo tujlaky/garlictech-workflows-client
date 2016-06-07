@@ -1,19 +1,17 @@
-_ = require 'lodash'
-webpack = require 'webpack'
-path = require 'path'
 
 IsDev = process.env.NODE_ENV is 'development'
 
 module.exports = (dirname) ->
-  commonConfig = (require './common')(dirname)
+  commonConfig = (require './common') dirname
   PATHS = commonConfig.paths
+  packageConfig = require('./package-config') dirname, PATHS
   
   (config) ->
     config.set
       files: [
-        "src/test/unit/test.coffee",
-        "./src/index.coffee",
-        "./src/vendor.coffee"
+        "dist/#{packageConfig.commonsBundleName}",
+        "src/index.coffee",
+        "src/test/unit/test.coffee"
       ]
 
       watched: IsDev
@@ -23,8 +21,7 @@ module.exports = (dirname) ->
 
       preprocessors:
         "src/test/unit/test.coffee": ['webpack']
-        "./src/index.coffee": ['webpack']
-        "./src/vendor.coffee": ['webpack']
+        "src/index.coffee": ['webpack']
       
       webpack: commonConfig.config
 

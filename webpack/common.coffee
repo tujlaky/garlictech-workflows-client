@@ -1,6 +1,5 @@
 path = require 'path'
 _ = require 'lodash'
-fs = require 'fs'
 webpack = require 'webpack'
 plugins = require('webpack-load-plugins')()
 
@@ -16,15 +15,9 @@ getPaths = (dirname) ->
   workflow_node: path.resolve "#{__dirname}/../node_modules"
   bower: path.join dirname, 'bower_components'
 
-config = (dirname, isComponent = true) ->
+config = (dirname) ->
   PATHS = getPaths dirname
-
-  moduleTypeConfig = if isComponent
-    template: path.join PATHS.test, 'index.html'
-  else
-    template: path.join PATHS.src, 'index.html'
-
-  moduleName = JSON.parse(fs.readFileSync("#{dirname}/package.json", 'utf8')).name
+  packageConfig = require('./package-config') dirname, PATHS
 
   conf =
     context: dirname
@@ -66,12 +59,14 @@ config = (dirname, isComponent = true) ->
     plugins: [
       new plugins.html
         inject: true
-        template: moduleTypeConfig.template
+        template: packageConfig.template
 
       new plugins.extractText "style.css",
         allChunks: true
 
       new plugins.progressBar()
+
+      new webpack.optimize.CommonsChunkPlugin packageConfig.commonsName, packageConfig.commonsBundleName
     ]
 
     resolve:
@@ -107,5 +102,5 @@ config = (dirname, isComponent = true) ->
   return conf
 
 module.exports = (dirname) ->
-  config: config(dirname)
-  paths: getPaths(dirname)
+  config: config dirname
+  paths: getPaths dirname
