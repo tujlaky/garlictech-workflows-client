@@ -1,15 +1,15 @@
 {
-  "name": "@gtrack/workflows",
+  "name": "@garlictech/workflows",
   "version": "0.0.1",
-  "description": "Workflow management for gTrack projects",
+  "description": "Workflow management for Garlic Tech projects.",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/molnarzs/workflows.git"
   },
   "keywords": [
-    "gtrack"
+    "garlictech"
   ],
-  "author": "Zsolt Molnar",
+  "author": "Zsolt R. Molnar",
   "license": "SEE LICENSE IN license.txt",
   "homepage": "https://bitbucket.org/molnarzs/workflows#readme",
   "dependencies": {
@@ -41,6 +41,7 @@
     "karma-sinon": "^1.0.4",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.x",
+    "ng-annotate-loader": "^0.1.0",
     "node-sass": "^3.7.0",
     "normalize-scss": "^5.0.3",
     "phantomjs-prebuilt": "^2.1.7",
@@ -56,13 +57,5 @@
     "webpack": "^1.12.x",
     "webpack-dev-server": "^1.14.1",
     "webpack-load-plugins": "^0.1.2"
-  },
-  "scripts": {
-    "start": "node node_modules/.bin/webpack-dev-server --inline --hot --watch",
-    "unittest": "KARMA_TEST=unit node node_modules/karma/bin/karma start karma.conf.coffee",
-    "build": "node node_modules/webpack/bin/webpack.js",
-    "protractor-start": "node_modules/protractor/bin/webdriver-manager start",
-    "protractor-test": "node_modules/protractor/bin/protractor ./src/test/protractor/config.coffee",
-    "protractor-setup": "node_modules/protractor/bin/webdriver-manager update --standalone"
   }
 }

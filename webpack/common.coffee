@@ -1,9 +1,11 @@
 path = require 'path'
+_ = require 'lodash'
 webpack = require 'webpack'
 plugins = require('webpack-load-plugins')()
 
 #related to this bug: https://github.com/jtangelder/sass-loader/issues/100
 process.env.UV_THREADPOOL_SIZE = 100
+IsDev = process.env.NODE_ENV is 'development'
 
 getPaths = (dirname) ->
   src: path.join dirname, 'src'
@@ -13,27 +15,24 @@ getPaths = (dirname) ->
   workflow_node: path.resolve "#{__dirname}/../node_modules"
   bower: path.join dirname, 'bower_components'
 
-config = (dirname, isComponent = true) ->
+config = (dirname) ->
   PATHS = getPaths dirname
-
-  moduleTypeConfig = if isComponent
-    template: path.join PATHS.test, 'index.html'
-  else
-    template: path.join PATHS.src, 'index.html'
+  packageConfig = require('./package-config') dirname, PATHS
 
   conf =
     context: dirname
     debug: false
     devtool: 'source-map'
+
     module:
       preLoaders: [
         {test: /\.coffee$/, loader: 'coffeelint', exclude: 'node_modules'}
       ]
       loaders: [
-        {test: /\.js$/, loader: 'jshint', exclude: /node_modules|bower_components/}
+        {test: /\.js$/, loader: 'jshint!ng-annotate?add=true', exclude: /node_modules|bower_components/}
         {test: /\.scss$/, loader: plugins.extractText.extract('style-loader', "css?sourceMap!postcss!sass?sourceMap")}
         {test: /\.css$/, loader: plugins.extractText.extract("style-loader", "css!postcss")}
-        {test: /\.coffee$/, loader: 'coffee-loader'}
+        {test: /\.coffee$/, loader: 'ng-annotate?add=true!coffee'}
         {test: /\.jade$/, loader: "html!jade-html"}
         {test: /\.html$/, loader: 'html'}
         {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff"}
@@ -58,24 +57,16 @@ config = (dirname, isComponent = true) ->
     },
     
     plugins: [
-      # new webpack.optimize.UglifyJsPlugin
-      #   minimize: true
-      #   compress:
-      #     warnings: false
-      
-      # new webpack.optimize.DedupePlugin()
-
-      new webpack.ProvidePlugin
-        "config": "config"
-
       new plugins.html
         inject: true
-        template: moduleTypeConfig.template
+        template: packageConfig.template
 
       new plugins.extractText "style.css",
         allChunks: true
 
       new plugins.progressBar()
+
+      new webpack.optimize.CommonsChunkPlugin packageConfig.commonsName, packageConfig.commonsBundleName
     ]
 
     resolve:
@@ -98,8 +89,18 @@ config = (dirname, isComponent = true) ->
     resolveLoader:
       root: PATHS.workflow_node
 
+  if not IsDev
+    conf.plugins = _.concat conf.plugins, [
+      new webpack.optimize.UglifyJsPlugin
+        minimize: true
+        compress:
+          warnings: false
+      
+      new webpack.optimize.DedupePlugin()
+    ]
+
   return conf
 
 module.exports = (dirname) ->
-  config: config(dirname)
-  paths: getPaths(dirname)
+  config: config dirname
+  paths: getPaths dirname

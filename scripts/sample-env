@@ -1,0 +1,5 @@
+export WORKFLOWS_ROOT=node_modules/@gtrack/workflows
+WORKFLOWS_BIN=${WORKFLOWS_ROOT}/node_modules/.bin
+PROTRACTOR_BIN=${WORKFLOWS_ROOT}/node_modules/protractor/bin/
+
+# export NODE_ENV=development
