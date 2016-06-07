@@ -91,10 +91,10 @@ config = (dirname) ->
 
   if not IsDev
     conf.plugins = _.concat conf.plugins, [
-      new webpack.optimize.UglifyJsPlugin
-        minimize: true
-        compress:
-          warnings: false
+      # new webpack.optimize.UglifyJsPlugin
+      #   minimize: true
+      #   compress:
+      #     warnings: false
       
       new webpack.optimize.DedupePlugin()
     ]
