@@ -36,10 +36,10 @@ config = (dirname, isComponent = true) ->
         {test: /\.coffee$/, loader: 'coffeelint', exclude: 'node_modules'}
       ]
       loaders: [
-        {test: /\.js$/, loader: 'jshint', exclude: /node_modules|bower_components/}
+        {test: /\.js$/, loader: 'jshint!ng-annotate?add=true', exclude: /node_modules|bower_components/}
         {test: /\.scss$/, loader: plugins.extractText.extract('style-loader', "css?sourceMap!postcss!sass?sourceMap")}
         {test: /\.css$/, loader: plugins.extractText.extract("style-loader", "css!postcss")}
-        {test: /\.coffee$/, loader: 'coffee-loader'}
+        {test: /\.coffee$/, loader: 'ng-annotate?add=true!coffee'}
         {test: /\.jade$/, loader: "html!jade-html"}
         {test: /\.html$/, loader: 'html'}
         {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff"}

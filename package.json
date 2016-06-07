@@ -41,6 +41,7 @@
     "karma-sinon": "^1.0.4",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.x",
+    "ng-annotate-loader": "^0.1.0",
     "node-sass": "^3.7.0",
     "normalize-scss": "^5.0.3",
     "phantomjs-prebuilt": "^2.1.7",
