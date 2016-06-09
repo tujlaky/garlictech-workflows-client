@@ -26,6 +26,10 @@ Run the unit tests:
 
 In development mode it will watch sources anr re-run tests on changes. In production mode, it runs it once.
 
+Set up selenium (do in once):
+
+```npm run-script protractor-setup```
+
 Start selenium server for protractor tests:
 
 ```npm run-script protractor-start```

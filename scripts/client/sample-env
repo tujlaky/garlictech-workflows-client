@@ -1,5 +1,5 @@
 export WORKFLOWS_ROOT=node_modules/@garlictech/workflows
-WORKFLOWS_BIN=${WORKFLOWS_ROOT}/node_modules/.bin
-PROTRACTOR_BIN=${WORKFLOWS_ROOT}/node_modules/protractor/bin/
+WORKFLOWS_BIN=node_modules/.bin
+PROTRACTOR_BIN=${WORKFLOWS_BIN}
 
 # export NODE_ENV=development
