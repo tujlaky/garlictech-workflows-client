@@ -5,6 +5,8 @@ _ = require 'lodash'
 argv = require('yargs').argv
 watch = require 'gulp-debounced-watch'
 
+console.log '%%%'
+
 # -----------------------------------------------------------------------------
 # Create representation of file/directory structure
 serverRoot =  "server"
@@ -44,7 +46,7 @@ gulp.task 'tpl', ->
   .pipe gulp.dest buildRoot
 
 # -----------------------------------------------------------------------------
-gulp.task 'watch', ['setup'], ->
+gulp.task 'watch', ['build'], ->
   watch coffeeFiles, {debounceTimeout: 1000}, ->
     gulp.start ['coffee', 'unittest']
   watch jsFiles, {debounceTimeout: 1000}, ->
@@ -53,10 +55,10 @@ gulp.task 'watch', ['setup'], ->
     gulp.start ['tpl', 'unittest']
 
 # -----------------------------------------------------------------------------
-gulp.task 'setup', ['js', 'tpl', 'coffee']
+gulp.task 'build', ['js', 'tpl', 'coffee']
 
 # -----------------------------------------------------------------------------
-gulp.task 'unittest', ['setup'], ->
+gulp.task 'unittest', ['build'], ->
   gulp.src ["#{serverRoot}/test/unittest/index.coffee", "#{serverRoot}/**/*unit-tests.coffee"], {read: false}
     .pipe p.coffee({bare: true}).on('error', gutil.log)
     .pipe p.mocha
@@ -65,7 +67,7 @@ gulp.task 'unittest', ['setup'], ->
       recursive: true
 
 # -----------------------------------------------------------------------------
-gulp.task 'systemtest', ['setup'], ->
+gulp.task 'systemtest', ['build'], ->
   p.env.set NODE_ENV: "test"
   gulp.src ["#{serverRoot}/test/systemtest/index.coffee", "#{serverRoot}/**/*system-tests.coffee", "#{serverRoot}/**/*system-tests.js"], {read: false}
     .pipe p.coffee({bare: true}).on('error', gutil.log)
@@ -83,4 +85,6 @@ gulp.task 'webserver', ->
     script: "#{buildRoot}/server/server.js"
 
 # -----------------------------------------------------------------------------
-gulp.task 'default', ['setup', 'watch', 'webserver']
+gulp.task 'default', ['build', 'watch', 'webserver']
+
+module.exports = gulp

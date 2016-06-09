@@ -9,33 +9,15 @@ Icon
 .Spotlight-V100
 .Trashes
 
-# --------------------
-# IntelliJ Files
-# --------------------
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# --------------------
-# Netbeans Files
-# --------------------
-nbproject/private/
-builds/
-builds
-nbbuild/
-nbdist/
-nbactions.xml
-nb-configuration.xml
 
 # --------------------
 # Node Files
 # --------------------
 .nodemonignore
 npm-debug.log
-node_modules/
 node_modules
 coverage/
+.env
 
 # --------------------
 # SASS Files
@@ -47,14 +29,10 @@ coverage/
 # --------------------
 .bower-*/
 bower_components
-lib/
 
 # --------------------
 # App Files
 # --------------------
-modules/public/
-modules/views/
-/public/build/
 .tmp/
 logs/
 builds/
@@ -62,7 +40,6 @@ dist/
 bin/
 *.bak
 credentials.coffee
-config.json
 
 # --------------------
 # Text editor files
