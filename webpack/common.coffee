@@ -48,7 +48,7 @@ config = (dirname) ->
       ]
       noParse: []
 
-    postcss: -> [ require('precss'),
+    postcss: -> [ require('precss'), require('postcss-normalize'),
       require('autoprefixer')({browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3']})
     ]
 
