@@ -9,7 +9,6 @@ module.exports = (dirname) ->
   conf = _.assign commonConfig.config,
     entry:
       release: './src/'
-      e2e: './e2e/test-app'
     output:
       path: commonConfig.paths.dist
       filename: "#{packageConfig.moduleName}.[name].bundle.js"
@@ -30,5 +29,8 @@ module.exports = (dirname) ->
       host: '0.0.0.0'
 
   conf.entry[packageConfig.commonsName] = packageConfig.commons
+
+  if process.env.NODE_ENV is 'development'
+    conf.entry.e2e = './e2e/test-app'
 
   return conf
