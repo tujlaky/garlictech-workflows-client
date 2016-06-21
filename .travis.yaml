@@ -7,8 +7,6 @@ before_install:
 - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 install:
 - npm install
-script:
-- npm run build
 deploy:
   provider: npm
   email: contact@garlictech.com

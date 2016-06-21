@@ -74,8 +74,5 @@
     "webpack": "^1.12.x",
     "webpack-dev-server": "^1.14.1",
     "webpack-load-plugins": "^0.1.2"
-  },
-  "scripts": {
-    "postinstall": "scripts/postinstall.sh"
   }
 }
