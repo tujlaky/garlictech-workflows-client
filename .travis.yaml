@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- '5'
+notifications:
+  slack: garlictech:hWAwcbpZceCN9v67hEn1ynIR
+before_install:
+- echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+install:
+- npm install
+deploy:
+  provider: npm
+  email: contact@garlictech.com
+  on:
+    tags: true
+ 

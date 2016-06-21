@@ -1,0 +1,8 @@
+src
+.editorconfig
+.jshintrc
+.travis.yml
+.npmignore
+.gitattributes
+coffeelint.json
+gulpfile.coffee
