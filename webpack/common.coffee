@@ -67,8 +67,14 @@ config = (dirname) ->
       new plugins.progressBar()
 
       new webpack.optimize.CommonsChunkPlugin packageConfig.commonsName, packageConfig.commonsBundleName
-    ]
 
+      new webpack.ProvidePlugin
+        $: "jquery",
+        jQuery: "jquery"
+
+      new webpack.ResolverPlugin (new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin ".bower.json", ["main"])
+    ]
+    
     resolve:
       extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", ".scss", '.css']
       
