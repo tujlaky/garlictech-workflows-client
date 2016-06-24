@@ -69,8 +69,10 @@ config = (dirname) ->
       new webpack.optimize.CommonsChunkPlugin packageConfig.commonsName, packageConfig.commonsBundleName
 
       new webpack.ProvidePlugin
-        $: "jquery",
+        $: "jquery"
         jQuery: "jquery"
+        "window.jQuery": "jquery"
+
 
       new webpack.ResolverPlugin (new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin ".bower.json", ["main"])
     ]
