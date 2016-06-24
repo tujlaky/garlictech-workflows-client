@@ -18,23 +18,30 @@ Start a development web server, with livereload:
 
 Build the project (in the ```dist``` directory):
 
-```npm run-script build```
+```npm run build```
 
 Run the unit tests:
 
-```npm run-script unittest```
+```npm run unittest```
 
 In development mode it will watch sources anr re-run tests on changes. In production mode, it runs it once.
 
 Set up selenium (do in once):
 
-```npm run-script protractor-setup```
+```npm run protractor-setup```
 
 Start selenium server for protractor tests:
 
-```npm run-script protractor-start```
+```npm run protractor-start```
 
 Execute e2e tests (selenium must be running):
 
-```npm run-script e2e-tests```
+```npm run e2e-tests```
 
+### Gulp commands
+
+They are really done during development. Available gulp commands:
+
+```gulp help```
+
+You can find some more info in https://github.com/garlictech/garlictech-workflows-common.
