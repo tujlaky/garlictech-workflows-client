@@ -78,7 +78,7 @@ config = (dirname) ->
     ]
     
     resolve:
-      extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", ".scss", '.css']
+      extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", "html", ".scss", '.css']
       
       root: [
         PATHS.workflow_node
