@@ -1,5 +1,7 @@
 # Workflow management for Garlic Tech projects
 
+[![Build Status](https://travis-ci.com/garlictech/garlictech-workflows-client.svg?token=PrxB3e9orjydN7XUbkZL&branch=master)](https://travis-ci.com/garlictech/garlictech-workflows-client)
+
 The information below applies all the Garlic Tech projects.
 
 ## Installation

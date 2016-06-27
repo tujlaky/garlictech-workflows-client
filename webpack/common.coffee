@@ -49,7 +49,7 @@ config = (dirname) ->
       noParse: []
 
     postcss: -> [ require('precss'), require('postcss-normalize'),
-      require('autoprefixer')({browsers: ['last 2 versions', 'ie >= 9', 'and_chr >= 2.3']})
+      require('autoprefixer')({browsers: ['last 2 versions', 'safari 5','ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4']})
     ]
 
     sassLoader: {
@@ -78,7 +78,7 @@ config = (dirname) ->
     ]
     
     resolve:
-      extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", "html", ".scss", '.css']
+      extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", ".html", ".scss", '.css']
       
       root: [
         PATHS.workflow_node
