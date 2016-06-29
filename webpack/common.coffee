@@ -29,7 +29,7 @@ config = (dirname) ->
         {test: /\.coffee$/, loader: 'coffeelint', exclude: 'node_modules'}
       ]
       loaders: [
-        {test: /\.js$/, loader: 'jshint!ng-annotate?add=true', exclude: /node_modules|bower_components/}
+        {test: /\.js$/, loader: 'jshint!ng-annotate?add=true', exclude: /node_modules|bower_components|vendor/}
         {test: /\.scss$/, loader: plugins.extractText.extract('style-loader', "css?sourceMap!postcss!sass?sourceMap")}
         {test: /\.css$/, loader: plugins.extractText.extract("style-loader", "css!postcss")}
         {test: /\.coffee$/, loader: 'ng-annotate?add=true!coffee'}
