@@ -9,11 +9,14 @@ install:
 - npm install
 script:
 - npm run build
+
 deploy:
   provider: npm
   email: contact@garlictech.com
   on:
     tags: true
-env:
-   global:
+  api_key: 9d0f740f-de7e-4486-9a72-1e5ce79dfbf5
+   
+env:  
+  global:
     - NPM_TOKEN=9d0f740f-de7e-4486-9a72-1e5ce79dfbf5
