@@ -70,7 +70,7 @@
   "devDependencies": {
     "gulp": "3.x.x"
   },
-  "files": ["dist"],
+  "files": ["dist", "scripts"],
   "scripts": {
     "start-dev": "gulp build && gulp watch",
     "build": "gulp build"
