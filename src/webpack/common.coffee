@@ -35,11 +35,11 @@ config = (dirname) ->
         {test: /\.coffee$/, loader: 'ng-annotate?add=true!coffee'}
         {test: /\.jade$/, loader: "html!jade-html"}
         {test: /\.html$/, loader: 'html'}
-        {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff"}
-        {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"}
-        {test: /\.jpg$/, loader: 'file-loader?mimetype=image/jpg&limit=10000'}
-        {test: /\.gif$/, loader: 'file-loader?mimetype=image/gif&limit=10000'}
-        {test: /\.png$/, loader: 'file-loader?mimetype=image/png&limit=10000'}
+        {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000&minetype=application/font-woff"}
+        {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000"}
+        {test: /\.jpg$/, loader: 'url?mimetype=image/jpg&limit=10000'}
+        {test: /\.gif$/, loader: 'url?mimetype=image/gif&limit=10000'}
+        {test: /\.png$/, loader: 'url?mimetype=image/png&limit=10000'}
         {test: /\.json$/, loader: 'json'}
         {test: /lodash/, loader: 'exports?_'}
       ]
@@ -68,17 +68,11 @@ config = (dirname) ->
 
       new webpack.optimize.CommonsChunkPlugin packageConfig.commonsName, packageConfig.commonsBundleName
 
-      new webpack.ProvidePlugin
-        $: "jquery"
-        jQuery: "jquery"
-        "window.jQuery": "jquery"
-
-
       new webpack.ResolverPlugin (new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin ".bower.json", ["main"])
     ]
     
     resolve:
-      extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", ".html", ".scss", '.css']
+      extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee", ".jade", ".html", ".scss", '.css', '.json']
       
       root: [
         PATHS.workflow_node

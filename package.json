@@ -33,6 +33,7 @@
     "jade-html-loader": "0.0.3",
     "jshint": "^2.9.2",
     "jshint-loader": "^0.8.3",
+    "json-loader": "^0.5.4",
     "karma": "^0.13.9",
     "karma-chai-plugins": "^0.7.0",
     "karma-chai-sinon": "^0.1.5",
@@ -61,8 +62,17 @@
     "sinon": "^1.16.x",
     "sinon-chai": "^2.8.x",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.x",
     "webpack-dev-server": "^1.14.1",
     "webpack-load-plugins": "^0.1.2"
+  },
+  "devDependencies": {
+    "gulp": "3.x.x"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "start-dev": "gulp build && gulp watch",
+    "build": "gulp build"
   }
 }
