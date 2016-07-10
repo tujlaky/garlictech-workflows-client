@@ -33,8 +33,8 @@ module.exports = (dirname) ->
       colors: true
       logLevel: "debug"
       frameworks: ['mocha', 'sinon-chai']
-      browsers : ['Chrome']
-      # browsers: ['PhantomJS_custom']
+      # browsers : ['Chrome']
+      browsers: ['PhantomJS_custom']
       captureTimeout: 60000
       reportSlowerThan: 500
 
@@ -51,8 +51,8 @@ module.exports = (dirname) ->
         exitOnResourceError: true
 
       plugins : [
-        'karma-chrome-launcher',
-        # 'karma-phantomjs-launcher',
+        # 'karma-chrome-launcher',
+        'karma-phantomjs-launcher',
         'karma-mocha',
         'karma-mocha-reporter',
         'karma-sinon-chai',
