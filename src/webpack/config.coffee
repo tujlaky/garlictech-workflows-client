@@ -1,6 +1,8 @@
 _ = require 'lodash'
 fs = require 'fs'
 path = require 'path'
+webpack = require 'webpack'
+plugins = require('webpack-load-plugins')()
 
 module.exports = (dirname) ->
   commonConfig = (require './common') dirname
@@ -29,8 +31,9 @@ module.exports = (dirname) ->
       host: '0.0.0.0'
 
   conf.entry[packageConfig.commonsName] = packageConfig.commons
+  conf.plugins.push new webpack.optimize.CommonsChunkPlugin packageConfig.commonsName, packageConfig.commonsBundleName
 
   if process.env.NODE_ENV is 'development'
-    conf.entry.e2e = './e2e/test-app'
+    conf.entry.e2etest = './e2e/test-app'
 
   return conf

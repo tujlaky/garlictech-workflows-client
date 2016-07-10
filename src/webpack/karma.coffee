@@ -1,3 +1,5 @@
+webpack = require 'webpack'
+plugins = require('webpack-load-plugins')()
 
 IsDev = process.env.NODE_ENV is 'development'
 
@@ -7,11 +9,11 @@ module.exports = (dirname) ->
   packageConfig = require('./package-config') dirname, PATHS
   
   (config) ->
-    config.set
+    # The statically settable properties. We set more properties programmatically after that
+    result =
       files: [
-        "dist/#{packageConfig.commonsBundleName}",
-        "src/index.coffee",
-        "src/test/unit/test.coffee"
+        packageConfig.main
+        packageConfig.unittest
       ]
 
       watched: IsDev
@@ -19,9 +21,7 @@ module.exports = (dirname) ->
       served: true
       singleRun: not IsDev
 
-      preprocessors:
-        "src/test/unit/test.coffee": ['webpack']
-        "src/index.coffee": ['webpack']
+      preprocessors: {}
       
       webpack: commonConfig.config
 
@@ -32,9 +32,9 @@ module.exports = (dirname) ->
       autoWatch : true
       colors: true
       logLevel: "debug"
-      frameworks: ['mocha', 'chai-sinon', 'chai-as-promised', 'sinon']
-      # browsers : ['Chrome']
-      browsers: ['PhantomJS_custom']
+      frameworks: ['mocha', 'sinon-chai']
+      browsers : ['Chrome']
+      # browsers: ['PhantomJS_custom']
       captureTimeout: 60000
       reportSlowerThan: 500
 
@@ -51,16 +51,28 @@ module.exports = (dirname) ->
         exitOnResourceError: true
 
       plugins : [
-        # 'karma-chrome-launcher',
-        'karma-phantomjs-launcher',
+        'karma-chrome-launcher',
+        # 'karma-phantomjs-launcher',
         'karma-mocha',
-        'karma-chai-sinon',
-        'karma-sinon',
         'karma-mocha-reporter',
+        'karma-sinon-chai',
         'karma-webpack',
         # 'karma-coverage'
-        'karma-chai-plugins',
       ]
 
       reporters: ['mocha']
       # reporters: ['mocha', 'coverage']
+
+      client:
+        chai:
+          includeStack: true
+
+    result.preprocessors[packageConfig.main] = ['webpack']
+    result.preprocessors[packageConfig.unittest] = ['webpack']
+
+    result.webpack.plugins.push new webpack.ProvidePlugin
+      GarlicTest: '@garlictech/workflows-client/src/test/unit'
+
+    config.set result
+    return config
+

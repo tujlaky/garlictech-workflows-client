@@ -65,3 +65,7 @@ They are really done during development. Available gulp commands:
 ```gulp help```
 
 You can find some more info in https://github.com/garlictech/garlictech-workflows-common.
+
+## Content of package.json
+
+* `main` filed should be present: it should be the index file that is the main entry point of the package. Karma, etc. uses it!
