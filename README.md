@@ -69,3 +69,19 @@ You can find some more info in https://github.com/garlictech/garlictech-workflow
 ## Content of package.json
 
 * `main` filed should be present: it should be the index file that is the main entry point of the package. Karma, etc. uses it!
+
+* A special construct mey be present, here is an example:
+
+```
+"garlic": {
+  "type": "module",
+  "unittest": "./src/test/unit/test.coffee"
+}
+```
+
+* ```type```: Must be "module" if the package is an (Angular) module. In this case, the index.html in the e2e test will be used, where you can implement your e2e tests. Otherwise, the package is an application package, it has ```src/index.html```, so ```npm start``` uses that.
+
+* ```unittest```: The entry point of the unit tests. By default, it is ```./src/test/unit/test.coffee```. Change it if you have vanilla Javascript, etc. project.
+
+
+
