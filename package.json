@@ -1,6 +1,6 @@
 {
   "name": "@garlictech/workflows-client",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Client-side workflow management for Garlic Tech projects.",
   "repository": {
     "type": "git",
