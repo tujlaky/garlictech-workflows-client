@@ -3,7 +3,7 @@ path = require 'path'
 globalConfig =
   baseUrl: 'http://localhost:8081'
 
-exports.config = 
+exports.config =
   seleniumAddress: 'http://localhost:4444/wd/hub'
   baseUrl: globalConfig.baseUrl
   specs: ["#{process.env.PWD}/e2e/scenarios/*.scenarios.coffee"]

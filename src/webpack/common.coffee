@@ -99,7 +99,7 @@ config = (dirname) ->
     ]
 
   if not IsCI
-     conf.plugins.push new plugins.progressBar()
+    conf.plugins.push new plugins.progressBar()
 
   return conf
 

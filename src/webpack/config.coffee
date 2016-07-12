@@ -11,6 +11,7 @@ module.exports = (dirname) ->
   conf = _.assign commonConfig.config,
     entry:
       release: './src/'
+      e2etest: './e2e/test-app'
     output:
       path: commonConfig.paths.dist
       filename: "#{packageConfig.moduleName}.[name].bundle.js"
@@ -32,8 +33,5 @@ module.exports = (dirname) ->
 
   conf.entry[packageConfig.commonsName] = packageConfig.commons
   conf.plugins.push new webpack.optimize.CommonsChunkPlugin packageConfig.commonsName, packageConfig.commonsBundleName
-
-  if process.env.NODE_ENV is 'development'
-    conf.entry.e2etest = './e2e/test-app'
 
   return conf
