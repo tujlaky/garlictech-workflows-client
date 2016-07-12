@@ -27,7 +27,7 @@ module.exports = (dirname) ->
       errorDetails: true
       hot: true
       colors: true
-      port: 8081
+      port: process.env.npm_package_config_port or 8081
       host: '0.0.0.0'
 
   conf.entry[packageConfig.commonsName] = packageConfig.commons

@@ -70,7 +70,7 @@ You can find some more info in https://github.com/garlictech/garlictech-workflow
 
 * `main` filed should be present: it should be the index file that is the main entry point of the package. Karma, etc. uses it!
 
-* A special construct mey be present, here is an example:
+* A special construct may be present, here is an example:
 
 ```
 "garlic": {
@@ -79,9 +79,11 @@ You can find some more info in https://github.com/garlictech/garlictech-workflow
 }
 ```
 
-* ```type```: Must be "module" if the package is an (Angular) module. In this case, the index.html in the e2e test will be used, where you can implement your e2e tests. Otherwise, the package is an application package, it has ```src/index.html```, so ```npm start``` uses that.
+ * ```type```: Must be "module" if the package is an (Angular) module. In this case, the index.html in the e2e test will be used, where you can implement your e2e tests. Otherwise, the package is an application package, it has ```src/index.html```, so ```npm start``` uses that.
 
-* ```unittest```: The entry point of the unit tests. By default, it is ```./src/test/unit/test.coffee```. Change it if you have vanilla Javascript, etc. project.
+ * ```unittest```: The entry point of the unit tests. By default, it is ```./src/test/unit/test.coffee```. Change it if you have vanilla Javascript, etc. project.
 
-
+* ```config``` field
+ 
+ * ```port```: webpack dev server uses this port (so, it is available as ```npm_package_config_port``` environment variable)
 
