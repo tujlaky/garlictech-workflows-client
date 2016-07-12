@@ -6,6 +6,7 @@ plugins = require('webpack-load-plugins')()
 #related to this bug: https://github.com/jtangelder/sass-loader/issues/100
 process.env.UV_THREADPOOL_SIZE = 100
 IsDev = process.env.NODE_ENV is 'development'
+IsCI = process.env.CI is 'true'
 
 getPaths = (dirname) ->
   src: path.join dirname, 'src'
@@ -64,8 +65,6 @@ config = (dirname) ->
       new plugins.extractText "style.css",
         allChunks: true
 
-      new plugins.progressBar()
-
       new webpack.ResolverPlugin (new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin ".bower.json", ["main"])
     ]
     
@@ -98,6 +97,9 @@ config = (dirname) ->
       
       new webpack.optimize.DedupePlugin()
     ]
+
+  if not IsCI
+     conf.plugins.push new plugins.progressBar()
 
   return conf
 
