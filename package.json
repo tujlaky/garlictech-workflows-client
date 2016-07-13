@@ -1,6 +1,6 @@
 {
   "name": "garlictech-workflows-client",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Client-side workflow management for Garlic Tech projects.",
   "repository": {
     "type": "git",
@@ -13,7 +13,6 @@
   "license": "SEE LICENSE IN license.txt",
   "homepage": "https://github.com/garlictech/garlictech-workflows-client",
   "dependencies": {
-    "garlictech-workflows-common": "*",
     "angular-mocks": "1.5.*",
     "autoprefixer": "^6.3.6",
     "chai": "^3.5.0",
@@ -27,11 +26,13 @@
     "exports-loader": "^0.6.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "0.9.*",
+    "garlictech-workflows-common": "*",
     "gulp": "3.x.x",
     "hjson": "^1.8.4",
     "hjson-loader": "^1.0.0",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "^2.17.0",
+    "imports-loader": "^0.6.5",
     "jade": "^1.11.0",
     "jade-html-loader": "0.0.3",
     "jshint": "^2.9.2",
