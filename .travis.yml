@@ -3,8 +3,6 @@ node_js:
 - '5'
 notifications:
   slack: garlictech:hWAwcbpZceCN9v67hEn1ynIR
-before_install:
-- echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 install:
 - npm install
 script:
@@ -15,8 +13,3 @@ deploy:
   email: contact@garlictech.com
   on:
     tags: true
-  api_key: 9d0f740f-de7e-4486-9a72-1e5ce79dfbf5
-   
-env:  
-  global:
-    - NPM_TOKEN=9d0f740f-de7e-4486-9a72-1e5ce79dfbf5

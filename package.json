@@ -1,5 +1,5 @@
 {
-  "name": "@garlictech/workflows-client",
+  "name": "garlictech-workflows-client",
   "version": "0.0.9",
   "description": "Client-side workflow management for Garlic Tech projects.",
   "repository": {
@@ -13,7 +13,7 @@
   "license": "SEE LICENSE IN license.txt",
   "homepage": "https://github.com/garlictech/garlictech-workflows-client",
   "dependencies": {
-    "@garlictech/workflows-common": "*",
+    "garlictech-workflows-common": "*",
     "angular-mocks": "1.5.*",
     "autoprefixer": "^6.3.6",
     "chai": "^3.5.0",
