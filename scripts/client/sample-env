@@ -1,4 +1,4 @@
-export WORKFLOWS_ROOT=node_modules/@garlictech/workflows-client
+export WORKFLOWS_ROOT=node_modules/garlictech-workflows-client
 WORKFLOWS_BIN=node_modules/.bin
 PROTRACTOR_BIN=${WORKFLOWS_BIN}
 
