@@ -71,7 +71,7 @@ module.exports = (dirname) ->
     result.preprocessors[packageConfig.unittest] = ['webpack']
 
     result.webpack.plugins.push new webpack.ProvidePlugin
-      GarlicTest: '@garlictech/workflows-client/src/test/unit'
+      GarlicTest: 'garlictech-workflows-client/src/test/unit'
 
     config.set result
     return config
