@@ -24,6 +24,7 @@
     "coffeelint-loader": "^0.1.1",
     "css-loader": "^0.23.1",
     "exports-loader": "^0.6.3",
+    "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "0.9.*",
     "garlictech-workflows-common": "*",
@@ -68,9 +69,6 @@
     "webpack": "^1.12.x",
     "webpack-dev-server": "^1.14.1",
     "webpack-load-plugins": "^0.1.2"
-  },
-  "devDependencies": {
-    "gulp": "3.x.x"
   },
   "files": [
     "dist",
